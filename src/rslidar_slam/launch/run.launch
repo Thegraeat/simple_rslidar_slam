@@ -1,0 +1,8 @@
+<launch>
+    <rosparam file="$(find rslidar_slam)/config/params.yaml" command="load" />
+
+    <node pkg="rslidar_slam" type="feature_node" name="feature_node" />
+    <node pkg="rslidar_slam" type="odometry_node" name="odometry_node" />
+
+
+</launch>

@@ -1,0 +1,11 @@
+sensor_topic:
+  lidar_topic: "rslidar_points"
+
+lidar:
+  lidar_type: "rs"
+  N_SCAN: 16
+  min_distance: 0.5
+  max_distance: 20
+
+feature:
+  plan_thres: 0.1
