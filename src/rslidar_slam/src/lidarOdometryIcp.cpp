@@ -119,7 +119,8 @@ void Odometry::planeHandler(const sensor_msgs::PointCloud2::ConstPtr& planeMsg)
     pcl::transformPointCloud(*currentCloud, *currInWorld, T_w_curr);
     *mapCloud += *currInWorld;
 
-    
+    downSizeFilter.setInputCloud(mapCloud);
+    downSizeFilter.filter(*mapCloud);
 
     sensor_msgs::PointCloud2 mapMsg;
     pcl::toROSMsg(*mapCloud, mapMsg);

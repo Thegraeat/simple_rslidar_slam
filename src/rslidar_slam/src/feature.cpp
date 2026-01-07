@@ -8,6 +8,10 @@ private:
     ros::Publisher pubPlaneCloud;    
     ros::Publisher pubOriginCloud;
     
+    std::string lidarTopic;
+    std::string lidarType;
+    double min_distance, max_distance, plan_thres;
+    int N_SCAN;
 
 public:
     Feature();
@@ -132,6 +136,7 @@ int main(int argc, char **argv)
     LOG(INFO) << "feature node started";
 
     ros::init(argc, argv, "feature_node");
+    ros::NodeHandle nh;
 
     Feature feature;
 

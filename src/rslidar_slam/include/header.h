@@ -9,12 +9,15 @@
 #include <mutex>
 #include <vector>
 #include <math.h>
+#include <thread>
+#include <queue>
 
 //ros
 #include <ros/ros.h>
 #include <sensor_msgs/PointCloud2.h>
 #include <nav_msgs/Odometry.h>
 #include <nav_msgs/Path.h>
+#include <tf/transform_datatypes.h>
 
 //pcl
 #include <pcl/point_types.h>
@@ -23,6 +26,7 @@
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/registration/icp.h>
 #include <pcl/registration/ndt.h>
+#include <pcl/kdtree/kdtree_flann.h>
 
 //glog
 #include <glog/logging.h>
@@ -31,10 +35,9 @@
 #include <Eigen/Dense>
 #include <Eigen/Geometry>
 
-std::string lidarTopic;
-std::string lidarType;
-double min_distance, max_distance, plan_thres;
-int N_SCAN;
+//ceres
+#include <ceres/ceres.h>
+#include <ceres/rotation.h>
 
 
 // rslidar的点云格式
@@ -49,7 +52,6 @@ struct RsPointXYZIRT {
 POINT_CLOUD_REGISTER_POINT_STRUCT(RsPointXYZIRT,
                                   (float, x, x)(float, y, y)(float, z, z)
                                   (float, intensity, intensity)(uint16_t, ring, ring)(double, timestamp, timestamp))
-
 
 
 #endif //HEADER_H
